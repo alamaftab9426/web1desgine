@@ -54,8 +54,17 @@
   </section>
 
   <section class="industry-approach">
-    <div class="container"><div><span class="page-eyebrow">Our Approach</span><h2>Delivering Industry-Specific Electrical Solutions</h2><p>We work with you to understand the application, recommend suitable products and provide responsive technical support.</p><a href="#enquiryModal" data-open-enquiry class="btn-brand">Discuss Your Project <i class="bi bi-arrow-right"></i></a></div>
-      <ol><li><strong>01</strong><span>Understand requirements</span></li><li><strong>02</strong><span>Recommend products</span></li><li><strong>03</strong><span>Support your application</span></li></ol>
+    <div class="container">
+      <div>
+        <span class="page-eyebrow">Our Approach</span>
+        <h2>Delivering Industry-Specific Electrical Solutions</h2>
+        <p>We work with you to understand the application, recommend suitable products and provide responsive technical support.</p>
+        <a href="#enquiryModal" data-open-enquiry class="btn-brand">Discuss Your Project <i class="bi bi-arrow-right"></i></a></div>
+      <ol>
+        <li><strong>01</strong><span>Understand requirements</span></li>
+        <li><strong>02</strong><span>Recommend products</span></li><li>
+        <strong>03</strong><span>Support your application</span></li>
+        </ol>
     </div>
   </section>
   <section class="inner-cta"><div class="container"><h2>Looking for Industry-Specific Solutions?</h2><p>Share your requirements and our team will help you explore suitable products and applications.</p><a href="#enquiryModal" data-open-enquiry class="btn-brand">Talk to Our Team <i class="bi bi-arrow-right"></i></a></div></section>
