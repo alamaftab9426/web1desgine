@@ -143,7 +143,7 @@
     </div>
   </section>
 
-  <!-- Why Choose Pristine Section (Cables with Orange Slanted Slash + 6 Feature Cards) -->
+  <!-- Why Choose Pristine Section (ith Orange Slanted Slash + 6 Feature Cards) -->
   <section class="about-difference inner-section">
     <div class="container difference-grid">
       <div class="difference-media">
