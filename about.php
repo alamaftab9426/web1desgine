@@ -13,21 +13,6 @@
 
 <!-- ABOUT PAGE CONTENT START -->
 <?php include_once("assets/inc/about-us.php"); ?>
-<!-- ABOUT PAGE CONTENT END -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <?php include_once("assets/inc/footer.php"); ?>
  <?php include_once("assets/inc/modal.php"); ?>
