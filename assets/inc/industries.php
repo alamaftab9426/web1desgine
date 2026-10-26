@@ -1,18 +1,19 @@
+<!-- ==================== INDUSTRIES PAGE START ==================== -->
 <main class="inner-main industries-page">
   <section class="page-hero industries-hero">
     <img src="assets/images/industries-banner.png" alt="" aria-hidden="true">
     <div class="page-hero-shade"></div>
     <div class="container page-hero-content">
-      <p class="breadcrumbs"><a href="index.php">Home</a><span>›</span>Industries &amp; Solutions</p>
-      <h1>Industries &amp; <span>Solutions</span></h1>
-      <p>Reliable electrical insulation solutions for diverse industries, built for safety, performance and a stronger tomorrow.</p>
+      <p class="breadcrumbs"><a href="index.php">Home</a><span>›</span>Industries</p>
+      <h1>Industries We <span>Serve</span></h1>
+      <p>Explore the applications where electrical insulation materials and cable accessories support reliable connections.</p>
     </div>
   </section>
 
   <section class="industry-intro inner-section">
     <div class="container">
       <div class="section-heading-row"><div><span class="page-eyebrow">Our Industries</span><h2>Serving Multiple Industries with Reliable Solutions</h2></div><p>Our electrical insulation materials and cable accessories support dependable connections across a broad range of applications.</p></div>
-      <div class="swiper industries-swiper industry-card-swiper">
+      <div class="swiper industries-swiper industry-card-swiper" aria-label="Industries and applications">
         <div class="swiper-wrapper">
           <div class="swiper-slide"><a class="industry-tile" href="#power-distribution"><img src="assets/images/Golden Hour Petrochemical Plant.png" alt="Electricity transmission lines"><strong><i class="bi bi-lightning-charge"></i>Power Distribution</strong></a></div>
           <div class="swiper-slide"><a class="industry-tile" href="#industrial-infrastructure"><img src="assets/images/Golden Hour Petrochemical Plant.png" alt="Industrial infrastructure"><strong><i class="bi bi-gear"></i>Industrial Infrastructure</strong></a></div>
@@ -69,5 +70,5 @@
   </section>
   
   <section class="inner-cta"><div class="container"><h2>Looking for Industry-Specific Solutions?</h2><p>Share your requirements and our team will help you explore suitable products and applications.</p><a href="#enquiryModal" data-open-enquiry class="btn-brand">Talk to Our Team <i class="bi bi-arrow-right"></i></a></div></section>
-  <?php include_once("assets/inc/client-logos.php"); ?>
 </main>
+<!-- ==================== INDUSTRIES PAGE END ==================== -->

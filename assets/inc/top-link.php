@@ -8,4 +8,4 @@
   <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet">
 
 
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/style.css?v=<?php echo filemtime(__DIR__ . '/../css/style.css'); ?>" rel="stylesheet">

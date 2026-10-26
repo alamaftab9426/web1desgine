@@ -7,7 +7,9 @@
 </head>
 <body class="site-page inner-page">
 <?php include_once("assets/inc/navbar.php"); ?>
+<!-- PRODUCTS PAGE CONTENT START -->
 <?php include_once("assets/inc/product-list.php"); ?>
+<!-- PRODUCTS PAGE CONTENT END -->
 <?php include_once("assets/inc/footer.php"); ?>
 <?php include_once("assets/inc/modal.php"); ?>
 <?php include_once("assets/inc/footer-link.php"); ?>

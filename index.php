@@ -10,7 +10,9 @@
 <body class="site-page home-page">
 
 <?php include_once("assets/inc/navbar.php"); ?>
+<!-- HOME PAGE CONTENT START -->
 <?php include_once("assets/inc/home.php"); ?>
+<!-- HOME PAGE CONTENT END -->
 
 <?php include_once("assets/inc/footer.php"); ?>
  <?php include_once("assets/inc/modal.php"); ?>

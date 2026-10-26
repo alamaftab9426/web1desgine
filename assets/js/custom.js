@@ -27,12 +27,33 @@
     document.querySelectorAll('.swiper').forEach(function (element) {
       if (element.swiper) return;
       var hero = element.classList.contains('hero-swiper');
+      var industryMarquee = element.classList.contains('industry-card-swiper');
+      var solutionMarquee = element.classList.contains('solution-needs-swiper');
+      var marquee = industryMarquee || solutionMarquee;
+      if (marquee && !element.dataset.marqueePrepared) {
+        var wrapper = element.querySelector('.swiper-wrapper');
+        if (wrapper) {
+          Array.prototype.slice.call(wrapper.children).forEach(function (slide) {
+            var duplicate = slide.cloneNode(true);
+            duplicate.classList.add('marquee-copy');
+            duplicate.setAttribute('aria-hidden', 'true');
+            duplicate.querySelectorAll('[id]').forEach(function (node) {
+              node.removeAttribute('id');
+            });
+            duplicate.querySelectorAll('a, button, input, select, textarea, [tabindex]').forEach(function (node) {
+              node.setAttribute('tabindex', '-1');
+            });
+            wrapper.appendChild(duplicate);
+          });
+          element.dataset.marqueePrepared = 'true';
+        }
+      }
       var options = {
-        loop: hero || element.classList.contains('featured-swiper'),
-        speed: reducedMotion ? 0 : 650,
+        loop: hero || element.classList.contains('featured-swiper') || marquee,
+        speed: reducedMotion ? 0 : (marquee ? 9000 : 650),
         grabCursor: true,
         autoplay: reducedMotion ? false : {
-          delay: hero ? HERO_SLIDER_DELAY : GENERAL_SLIDER_DELAY,
+          delay: marquee ? 0 : (hero ? HERO_SLIDER_DELAY : GENERAL_SLIDER_DELAY),
           disableOnInteraction: false,
           pauseOnMouseEnter: true
         },
@@ -45,6 +66,22 @@
         options.effect = 'fade';
         options.fadeEffect = { crossFade: true };
         if (pagination) options.pagination = { el: pagination, clickable: true };
+      } else if (industryMarquee) {
+        options.spaceBetween = 14;
+        options.slidesPerView = 1.4;
+        options.breakpoints = {
+          480: { slidesPerView: 2.2 },
+          768: { slidesPerView: 3.2 },
+          1200: { slidesPerView: 4.1 }
+        };
+      } else if (solutionMarquee) {
+        options.spaceBetween = 14;
+        options.slidesPerView = 1.35;
+        options.breakpoints = {
+          480: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1200: { slidesPerView: 4 }
+        };
       } else if (element.classList.contains('industries-swiper')) {
         options.spaceBetween = 14;
         options.slidesPerView = 1.4;
@@ -88,6 +125,16 @@
       instance.on('sliderFirstMove', function () {
         if (instance.autoplay) instance.autoplay.stop();
       });
+      if (marquee) {
+        element.addEventListener('focusin', function () {
+          if (instance.autoplay) instance.autoplay.stop();
+        });
+        element.addEventListener('focusout', function (event) {
+          if (!element.contains(event.relatedTarget) && !reducedMotion && instance.autoplay) {
+            instance.autoplay.start();
+          }
+        });
+      }
     });
   }
 
@@ -107,18 +154,184 @@
   var mainNav = document.getElementById('mainNav');
   if (mainNav && window.bootstrap && window.bootstrap.Collapse) {
     mainNav.addEventListener('click', function (event) {
-      var link = event.target.closest('a[href^="#"]');
-      if (link && !link.classList.contains('dropdown-toggle') && window.innerWidth < 992) {
+      var link = event.target.closest('a[href]');
+      if (link && window.innerWidth < 992) {
         var collapse = window.bootstrap.Collapse.getInstance(mainNav);
         if (collapse) collapse.hide();
       }
     });
   }
 
+  /* Accessible Products & Services dropdown behavior */
+  function setDropdownState(item, open) {
+    var toggle = item.querySelector('[data-nav-toggle]');
+    item.classList.toggle('is-open', open);
+    if (open) item.classList.remove('is-escape-closed');
+    if (toggle) toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  document.querySelectorAll('.nav-dropdown').forEach(function (item) {
+    var toggle = item.querySelector('[data-nav-toggle]');
+    item.addEventListener('mouseenter', function () {
+      if (window.innerWidth >= 992) setDropdownState(item, true);
+    });
+    item.addEventListener('mouseleave', function () {
+      if (window.innerWidth >= 992 && !item.contains(document.activeElement)) {
+        setDropdownState(item, false);
+      }
+    });
+    item.addEventListener('focusin', function (event) {
+      if (window.innerWidth >= 992 && !(item.classList.contains('is-escape-closed') && event.target === toggle)) {
+        setDropdownState(item, true);
+      }
+    });
+    item.addEventListener('focusout', function (event) {
+      if (!item.contains(event.relatedTarget)) setDropdownState(item, false);
+    });
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        if (window.innerWidth >= 992) {
+          setDropdownState(item, true);
+        } else {
+          setDropdownState(item, !item.classList.contains('is-open'));
+        }
+      });
+    }
+  });
+
+  /* Search the published products, applications, solutions, and insights */
+  var searchButton = document.querySelector('.search-btn');
+  var searchIcon = searchButton ? searchButton.querySelector('i') : null;
+  var searchPanel = document.getElementById('siteSearchPanel');
+  var searchInput = document.getElementById('siteSearchInput');
+  var searchResults = document.getElementById('siteSearchResults');
+  var searchMessage = document.getElementById('siteSearchMessage');
+  var searchForm = document.getElementById('siteSearchPanel');
+  var searchIndex = [
+    { title: 'Heat Shrinkable Sleeves', category: 'Products & Services', description: 'Electrical insulation sleeves and product enquiries.', url: 'product-details.php?slug=heat-shrinkable-sleeves', terms: 'heat shrink polyolefin insulation sleeves product' },
+    { title: 'Right Angle Boots', category: 'Products & Services', description: 'Cable accessories and termination products.', url: 'product-details.php?slug=right-angle-boots', terms: 'right angle boot termination' },
+    { title: 'Busbar Sleeves', category: 'Products & Services', description: 'Electrical insulation accessories for busbar applications.', url: 'product-details.php?slug=busbar-sleeves', terms: 'busbar sleeves' },
+    { title: 'Separable Connectors', category: 'Products & Services', description: 'Browse cable connector products and related accessories.', url: 'product-details.php?slug=separable-connectors', terms: 'separable connector cable accessories' },
+    { title: 'Cable Jointing Kits', category: 'Products & Services', description: 'Cable jointing products and application support.', url: 'product-details.php?slug=cable-jointing-kits', terms: 'cable jointing kit joints' },
+    { title: 'Heat Shrinkable Joints', category: 'Products & Services', description: 'Heat shrinkable joint products for cable applications.', url: 'product-details.php?slug=heat-shrinkable-joints', terms: 'heat shrink joint cable' },
+    { title: 'Outdoor Termination Kits', category: 'Products & Services', description: 'Explore termination products in the product range.', url: 'product-details.php?slug=outdoor-termination-kits', terms: 'outdoor termination kit' },
+    { title: 'Repair Services', category: 'Services', description: 'Enquire about repair service requirements.', url: 'product-details.php?slug=repair-services', terms: 'repair service support' },
+    { title: 'Other Accessories', category: 'Products & Services', description: 'Enquire about additional cable accessories.', url: 'product-details.php?slug=other-accessories', terms: 'other accessories cable' },
+    { title: 'Power Distribution', category: 'Industries', description: 'Electrical insulation and cable accessory applications.', url: 'industries.php#power-distribution', terms: 'power distribution transmission networks substations' },
+    { title: 'Industrial Infrastructure', category: 'Industries', description: 'Applications across industrial environments and infrastructure.', url: 'industries.php#industrial-infrastructure', terms: 'industrial infrastructure applications' },
+    { title: 'Commercial Buildings', category: 'Industries', description: 'Building electrical systems and connections.', url: 'industries.php#commercial-buildings', terms: 'commercial building electrical systems' },
+    { title: 'Railways & Metro', category: 'Industries', description: 'Electrical systems used in rail and urban transport networks.', url: 'industries.php#railways', terms: 'railway metro transport' },
+    { title: 'Renewable Energy', category: 'Industries', description: 'Electrical connection products for solar and wind projects.', url: 'industries.php#renewable-energy', terms: 'renewable solar wind energy' },
+    { title: 'Electrical Insulation Solutions', category: 'Solutions', description: 'Explore insulation products and application guidance.', url: 'solutions.php#featured-solution', terms: 'electrical insulation solutions' },
+    { title: 'Cable Termination & Jointing', category: 'Solutions', description: 'Termination and jointing products for electrical networks.', url: 'solutions.php#solution-range', terms: 'cable termination jointing' },
+    { title: 'Protection & Accessories', category: 'Solutions', description: 'Browse protection products and other accessories.', url: 'solutions.php#solution-range', terms: 'protection accessories identification' },
+    { title: 'Why Dependable Insulation Matters', category: 'Insights', description: 'Electrical insulation and product selection for network applications.', url: 'blog-details.php?slug=reliable-electrical-insulation', terms: 'blog electrical infrastructure networks' },
+    { title: 'Understanding Heat Shrinkable Sleeves', category: 'Insights', description: 'A starting point for sleeve applications and product selection.', url: 'blog-details.php?slug=understanding-heat-shrinkable-sleeves', terms: 'blog product guide' },
+    { title: 'Key Considerations for Cable Jointing', category: 'Insights', description: 'Application, compatibility, and product selection for cable connections.', url: 'blog-details.php?slug=key-considerations-for-cable-jointing', terms: 'blog cable accessories' },
+    { title: 'Electrical Insulation Across Industries', category: 'Insights', description: 'How requirements vary across distribution, infrastructure, and energy.', url: 'blog-details.php?slug=electrical-insulation-across-industries', terms: 'blog industry applications' },
+    { title: 'Contact Pristine Engineering Services', category: 'Contact', description: 'Find the Mumbai office, phone number, email, and enquiry form.', url: 'contact.php', terms: 'contact phone email Mumbai address enquiry' }
+  ];
+
+  function closeSearch(restoreFocus) {
+    if (!searchPanel || !searchButton) return;
+    searchPanel.hidden = true;
+    searchButton.setAttribute('aria-expanded', 'false');
+    searchButton.setAttribute('aria-label', 'Open website search');
+    if (searchIcon) {
+      searchIcon.classList.remove('bi-x-lg');
+      searchIcon.classList.add('bi-search');
+    }
+    if (restoreFocus && searchInput) searchButton.focus();
+  }
+
+  function renderSearchResults(query) {
+    if (!searchResults || !searchMessage) return;
+    searchResults.textContent = '';
+    var normalized = query.trim().toLocaleLowerCase();
+    if (normalized.length < 2) {
+      searchMessage.textContent = 'Enter at least two letters to search.';
+      return;
+    }
+    var matches = searchIndex.filter(function (item) {
+      return (item.title + ' ' + item.category + ' ' + item.description + ' ' + item.terms)
+        .toLocaleLowerCase().indexOf(normalized) !== -1;
+    }).slice(0, 8);
+    if (!matches.length) {
+      searchMessage.textContent = 'No results found. Try a product, industry, or application.';
+      return;
+    }
+    searchMessage.textContent = matches.length + (matches.length === 1 ? ' result found.' : ' results found.');
+    matches.forEach(function (item) {
+      var listItem = document.createElement('li');
+      var link = document.createElement('a');
+      var title = document.createElement('strong');
+      var description = document.createElement('span');
+      var category = document.createElement('small');
+      link.href = item.url;
+      title.textContent = item.title;
+      description.textContent = item.description;
+      category.textContent = item.category;
+      link.appendChild(title);
+      link.appendChild(description);
+      link.appendChild(category);
+      listItem.appendChild(link);
+      searchResults.appendChild(listItem);
+    });
+  }
+
+  if (searchButton && searchPanel && searchInput && searchForm) {
+    searchButton.addEventListener('click', function () {
+      var open = searchPanel.hidden;
+      searchPanel.hidden = !open;
+      searchButton.setAttribute('aria-expanded', open ? 'true' : 'false');
+      searchButton.setAttribute('aria-label', open ? 'Close website search' : 'Open website search');
+      if (searchIcon) {
+        searchIcon.classList.toggle('bi-search', !open);
+        searchIcon.classList.toggle('bi-x-lg', open);
+      }
+      if (open) searchInput.focus();
+    });
+    searchForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      renderSearchResults(searchInput.value);
+    });
+    searchInput.addEventListener('input', function () {
+      renderSearchResults(searchInput.value);
+    });
+    searchResults.addEventListener('click', function (event) {
+      if (event.target.closest('a')) closeSearch(false);
+    });
+    document.addEventListener('click', function (event) {
+      if (!searchPanel.hidden && !searchPanel.contains(event.target) && !searchButton.contains(event.target)) {
+        closeSearch(false);
+      }
+    });
+  }
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key !== 'Escape') return;
+    if (searchPanel && !searchPanel.hidden) {
+      closeSearch(true);
+      return;
+    }
+    var openDropdown = document.querySelector('.nav-dropdown.is-open');
+    if (openDropdown) {
+      var toggle = openDropdown.querySelector('[data-nav-toggle]');
+      openDropdown.classList.add('is-escape-closed');
+      setDropdownState(openDropdown, false);
+      if (toggle) toggle.focus();
+    }
+  });
+
 
   /* ---------------SCROLL REVEAL--------------------- */
+  document.querySelectorAll('main > section').forEach(function (section) {
+    var content = section.querySelector(':scope > .container, :scope > .container-xl, :scope > .page-hero-content');
+    if (content && !content.querySelector('.reveal')) content.classList.add('reveal');
+  });
   var revealEls = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
+  if ('IntersectionObserver' in window && !reducedMotion) {
+    document.documentElement.classList.add('has-scroll-reveal');
     var revealIO = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); }
@@ -177,35 +390,40 @@
 
   /* --------------------ENQUIRY FORMS AND FIRST-VISIT MODAL---------------- */
   function validateEnquiry(form) {
-    var name = form.elements.name;
-    var phone = form.elements.phone;
-    var requirement = form.elements.requirement;
     var valid = true;
-
-    [name, requirement].forEach(function (field) {
-      var invalid = !field.value.trim();
+    Array.prototype.slice.call(form.querySelectorAll('[required]')).forEach(function (field) {
+      var invalid = !field.checkValidity();
+      var visualField = field.closest('.phone-field') || field;
       field.classList.toggle('is-invalid', invalid);
+      visualField.classList.toggle('is-invalid', invalid);
       if (invalid) valid = false;
     });
-
-    var phoneInvalid = !/^[6-9]\d{9}$/.test(phone.value.replace(/\D/g, ''));
-    var phoneField = phone.closest('.phone-field') || phone;
-    phoneField.classList.toggle('is-invalid', phoneInvalid);
-    if (phoneInvalid) valid = false;
     return valid;
+  }
+
+  function formValue(form, name) {
+    var field = form.elements[name];
+    return field ? field.value.trim() : '';
   }
 
   function enquiryDetails(form) {
     return {
-      name: form.elements.name.value.trim(),
-      phone: form.elements.phone.value.replace(/\D/g, ''),
-      requirement: form.elements.requirement.value.trim()
+      name: formValue(form, 'name'),
+      company: formValue(form, 'company'),
+      phone: formValue(form, 'phone').replace(/\D/g, ''),
+      email: formValue(form, 'email'),
+      product: formValue(form, 'product'),
+      requirement: formValue(form, 'requirement')
     };
   }
 
   function mailtoEnquiry(details) {
     var subject = 'Website enquiry from ' + details.name;
-    var body = 'Name: ' + details.name + '\nMobile: +91 ' + details.phone +
+    var body = 'Name: ' + details.name +
+      (details.company ? '\nCompany: ' + details.company : '') +
+      '\nMobile: +91 ' + details.phone +
+      (details.email ? '\nEmail: ' + details.email : '') +
+      (details.product ? '\nProduct / service: ' + details.product : '') +
       '\nRequirement: ' + details.requirement;
     window.location.href = 'mailto:' + COMPANY_ENQUIRY_EMAIL +
       '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
@@ -217,39 +435,52 @@
       status.textContent = 'WhatsApp is not configured yet. Please use email or call 07949313008.';
       return;
     }
-    var message = 'Hello, my name is ' + details.name + '. My mobile number is +91 ' +
-      details.phone + '. My requirement: ' + details.requirement;
-    window.location.href = 'https://wa.me/' + COMPANY_WHATSAPP_NUMBER.replace(/\D/g, '') +
+    var message = 'Hello, my name is ' + details.name + '.' +
+      (details.company ? ' Company: ' + details.company + '.' : '') +
+      ' My mobile number is +91 ' + details.phone + '.' +
+      (details.email ? ' My email address is ' + details.email + '.' : '') +
+      (details.product ? ' Product or service: ' + details.product + '.' : '') +
+      ' My requirement: ' + details.requirement;
+    var whatsappNumber = COMPANY_WHATSAPP_NUMBER.replace(/\D/g, '');
+    if (/^[6-9]\d{9}$/.test(whatsappNumber)) whatsappNumber = '91' + whatsappNumber;
+    window.location.href = 'https://wa.me/' + whatsappNumber +
       '?text=' + encodeURIComponent(message);
   }
+
+  document.querySelectorAll('input[type="tel"][inputmode="numeric"]').forEach(function (input) {
+    input.addEventListener('input', function () {
+      var maximum = parseInt(input.getAttribute('maxlength'), 10) || 10;
+      input.value = input.value.replace(/\D/g, '').slice(0, maximum);
+      input.classList.remove('is-invalid');
+      var wrapper = input.closest('.phone-field');
+      if (wrapper) wrapper.classList.remove('is-invalid');
+    });
+  });
 
   var form = document.getElementById('enquiryForm');
   if (form) {
     var msg = document.getElementById('formMsg');
-    var phoneInput = form.elements['phone'];
-    var phoneWrap = phoneInput.closest('.phone-field') || phoneInput;
-
-    phoneInput.addEventListener('input', function () {
-      phoneInput.value = phoneInput.value.replace(/\D/g, '').slice(0, 10);
-      phoneWrap.classList.remove('is-invalid');
-    });
-
-    ['requirement', 'name'].forEach(function (fieldName) {
-      form.elements[fieldName].addEventListener('input', function () {
-        form.elements[fieldName].classList.remove('is-invalid');
-      });
-    });
+    var formBusy = false;
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (formBusy) return;
       if (!validateEnquiry(form)) {
         msg.className = 'form-msg err';
         msg.textContent = 'Please enter your name, requirement and a valid 10-digit mobile number.';
+        form.reportValidity();
         return;
       }
+      formBusy = true;
+      var submitButton = form.querySelector('[type="submit"]');
+      if (submitButton) submitButton.disabled = true;
       msg.className = 'form-msg notice';
-      msg.textContent = 'Opening your email app with the enquiry details.';
+      msg.textContent = 'Opening your email app. Review and send the prepared message there.';
       mailtoEnquiry(enquiryDetails(form));
+      window.setTimeout(function () {
+        formBusy = false;
+        if (submitButton) submitButton.disabled = false;
+      }, 1800);
     });
   }
 
@@ -259,6 +490,7 @@
   if (enquiryModal && modalForm && modalStatus) {
     var modalSeenKey = 'pristineEnquiryModalSeen';
     var hasSeenModal = false;
+    var modalDismissedThisPage = false;
     try {
       hasSeenModal = window.sessionStorage.getItem(modalSeenKey) === '1';
     } catch (error) {
@@ -267,58 +499,93 @@
 
     if (!hasSeenModal && window.bootstrap && window.bootstrap.Modal) {
       window.setTimeout(function () {
-        window.bootstrap.Modal.getOrCreateInstance(enquiryModal).show();
+        if (!hasSeenModal && !modalDismissedThisPage) {
+          window.bootstrap.Modal.getOrCreateInstance(enquiryModal).show();
+        }
       }, reducedMotion ? 0 : 700);
     }
 
-    enquiryModal.addEventListener('shown.bs.modal', function () {
+    function markModalSeen() {
+      hasSeenModal = true;
       try {
         window.sessionStorage.setItem(modalSeenKey, '1');
       } catch (error) {
         document.cookie = modalSeenKey + '=1; path=/; SameSite=Lax';
       }
+    }
+
+    enquiryModal.addEventListener('shown.bs.modal', markModalSeen);
+    enquiryModal.addEventListener('hidden.bs.modal', function () {
+      modalDismissedThisPage = true;
+      markModalSeen();
     });
 
-    modalForm.elements.phone.addEventListener('input', function () {
-      this.value = this.value.replace(/\D/g, '').slice(0, 10);
-      this.closest('.phone-field').classList.remove('is-invalid');
-    });
-    ['name', 'requirement'].forEach(function (fieldName) {
-      modalForm.elements[fieldName].addEventListener('input', function () {
-        this.classList.remove('is-invalid');
-      });
-    });
+    var modalBusy = false;
+    modalForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (modalBusy) return;
+      if (!validateEnquiry(modalForm)) {
+        modalStatus.className = 'form-msg err';
+        modalStatus.textContent = 'Check the required fields. Use a valid email address and 10-digit Indian mobile number.';
+        modalForm.reportValidity();
+        return;
+      }
 
-    modalForm.querySelectorAll('[data-enquiry-action]').forEach(function (button) {
-      button.addEventListener('click', function () {
-        if (!validateEnquiry(modalForm)) {
-          modalStatus.className = 'form-msg err';
-          modalStatus.textContent = 'Please enter your name, requirement and a valid 10-digit mobile number.';
-          return;
-        }
-        var details = enquiryDetails(modalForm);
-        if (button.dataset.enquiryAction === 'whatsapp') {
-          openWhatsAppEnquiry(details, modalStatus);
-        } else {
-          modalStatus.className = 'form-msg notice';
-          modalStatus.textContent = 'Opening your email app with the enquiry details.';
-          mailtoEnquiry(details);
-        }
+      var action = event.submitter ? event.submitter.value : 'email';
+      var details = enquiryDetails(modalForm);
+      if (action === 'whatsapp' && !COMPANY_WHATSAPP_NUMBER) {
+        modalStatus.className = 'form-msg err';
+        modalStatus.textContent = 'WhatsApp is not configured. Please use email or call 07949313008.';
+        return;
+      }
+      var submitButtons = modalForm.querySelectorAll('[type="submit"]');
+      modalBusy = true;
+      Array.prototype.forEach.call(submitButtons, function (button) {
+        button.dataset.originalContent = button.innerHTML;
+        button.disabled = true;
       });
+      if (event.submitter) {
+        event.submitter.innerHTML = '<i class="bi bi-arrow-repeat" aria-hidden="true"></i> Preparing message…';
+      }
+
+      if (action === 'whatsapp') {
+        modalStatus.className = 'form-msg notice';
+        modalStatus.textContent = 'Opening WhatsApp with a draft. Review and send the message there.';
+        openWhatsAppEnquiry(details, modalStatus);
+      } else {
+        modalStatus.className = 'form-msg notice';
+        modalStatus.textContent = 'Opening your email app with a draft. Review and send the message there.';
+        mailtoEnquiry(details);
+      }
+
+      window.setTimeout(function () {
+        modalBusy = false;
+        Array.prototype.forEach.call(submitButtons, function (button) {
+          button.disabled = false;
+          if (button.dataset.originalContent) {
+            button.innerHTML = button.dataset.originalContent;
+            delete button.dataset.originalContent;
+          }
+        });
+      }, 1800);
     });
 
     document.querySelectorAll('[data-open-enquiry]').forEach(function (trigger) {
       trigger.addEventListener('click', function (event) {
         event.preventDefault();
+        var productField = document.getElementById('contactModalProduct');
+        var productName = trigger.getAttribute('data-product-name');
+        if (productField && productName) productField.value = productName;
         window.bootstrap.Modal.getOrCreateInstance(enquiryModal).show();
       });
     });
   }
 
   document.querySelectorAll('[data-contact-email-form]').forEach(function (contactForm) {
+    var busy = false;
     contactForm.addEventListener('submit', function (event) {
       event.preventDefault();
-      if (!contactForm.reportValidity()) return;
+      if (busy || !contactForm.reportValidity()) return;
 
       var formData = new FormData(contactForm);
       var body = Array.from(formData.entries()).map(function (entry) {
@@ -330,8 +597,15 @@
         status.className = 'form-msg notice';
         status.textContent = 'Opening your email app with the enquiry details. Review and send the message there.';
       }
+      busy = true;
+      var submitButton = contactForm.querySelector('[type="submit"]');
+      if (submitButton) submitButton.disabled = true;
       window.location.href = 'mailto:' + COMPANY_ENQUIRY_EMAIL +
         '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      window.setTimeout(function () {
+        busy = false;
+        if (submitButton) submitButton.disabled = false;
+      }, 1800);
     });
   });
 
@@ -356,4 +630,3 @@
   if (yr) yr.textContent = new Date().getFullYear();
 
 })();
-

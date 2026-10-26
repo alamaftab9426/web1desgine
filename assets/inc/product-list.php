@@ -1,3 +1,10 @@
+<?php
+require_once __DIR__ . '/product-catalog.php';
+$escape = static function ($value) {
+  return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+};
+?>
+<!-- ==================== PRODUCTS PAGE START ==================== -->
 <main class="inner-main products-page">
   <section class="page-hero products-hero">
     <img src="assets/images/products-banner.png" alt="" aria-hidden="true">
@@ -19,40 +26,49 @@
     </div>
   </section>
 
-  <section class="product-showcase inner-section" id="heat-shrinkable">
-    <div class="container product-showcase-grid">
-      <aside class="product-category-list">
-        <h2><i class="bi bi-grid"></i> Product Categories</h2>
-        <a class="selected" href="#heat-shrinkable"><i class="bi bi-circle-half"></i>Heat Shrinkable Sleeves</a>
-        <a href="#product-categories"><i class="bi bi-plug"></i>Right Angle Boots</a>
-        <a href="#product-categories"><i class="bi bi-diagram-3"></i>Busbar Sleeves</a>
-        <a href="#product-categories"><i class="bi bi-lightning"></i>Separable Connectors</a>
-        <a href="#product-categories"><i class="bi bi-link-45deg"></i>Cable Jointing Kits</a>
-        <a href="#product-categories"><i class="bi bi-boxes"></i>Heat Shrinkable Joints</a>
-        <a href="#product-categories"><i class="bi bi-shield"></i>Outdoor Termination Kits</a>
-        <a href="#product-categories"><i class="bi bi-tools"></i>Repair Services</a>
-        <div class="product-help"><i class="bi bi-headset"></i><strong>Need help choosing?</strong><p>Get expert advice for your application.</p><a href="#product-enquiry" class="btn-brand">Consult Our Experts <i class="bi bi-arrow-right"></i></a></div>
-      </aside>
-
-      <div class="product-feature">
-        <div class="product-feature-head">
-          <div><span class="page-eyebrow">Featured Range</span><h2>Heat Shrinkable Sleeves</h2><p>High performance sleeves for electrical insulation, protection and dependable cable connections across demanding applications.</p></div>
-          <img src="assets/images/banner3.png" alt="Heat-shrinkable electrical insulation products">
-        </div>
-        <div class="feature-points">
-          <div><i class="bi bi-shield-check"></i><span>Excellent Insulation</span></div>
-          <div><i class="bi bi-brightness-high"></i><span>UV &amp; Weather Resistant</span></div>
-          <div><i class="bi bi-patch-check"></i><span>High Durability</span></div>
-          <div><i class="bi bi-grid"></i><span>Wide Size Range</span></div>
-        </div>
-        <div class="product-range-heading"><h3>Our Heat Shrinkable Sleeves Range</h3><a href="#product-enquiry">Enquire about sizes <i class="bi bi-arrow-right"></i></a></div>
-        <div class="sleeve-grid">
-          <article><img src="assets/images/banner3.png" alt="Polyolefin heat shrinkable sleeve"><h4>6.6kV Polyolefin</h4><p>Heat Shrinkable Sleeves</p><a href="#product-enquiry">View Details <i class="bi bi-arrow-right"></i></a></article>
-          <article><img src="assets/images/banner3.png" alt="Electrical insulation sleeve products"><h4>11kV Polyolefin</h4><p>Heat Shrinkable Sleeves</p><a href="#product-enquiry">View Details <i class="bi bi-arrow-right"></i></a></article>
-          <article><img src="assets/images/banner2.png" alt="Red electrical insulation sleeve products"><h4>1.1kV Polyolefin</h4><p>Heat Shrinkable Sleeves</p><a href="#product-enquiry">View Details <i class="bi bi-arrow-right"></i></a></article>
-          <article><img src="assets/images/banner2.png" alt="High voltage electrical insulation sleeve products"><h4>3.3kV Polyolefin</h4><p>Heat Shrinkable Sleeves</p><a href="#product-enquiry">View Details <i class="bi bi-arrow-right"></i></a></article>
+  <section class="featured-product-category inner-section" id="heat-shrinkable">
+    <div class="container featured-product-category-grid">
+      <div class="featured-product-copy">
+        <span class="page-eyebrow">Featured Range</span>
+        <h2>Heat Shrinkable Sleeves</h2>
+        <p>Explore sleeves for electrical insulation and cable applications. Share your installation details with our team to discuss available options and confirm product information.</p>
+        <ul>
+          <li><i class="bi bi-shield-check" aria-hidden="true"></i>Electrical insulation applications</li>
+          <li><i class="bi bi-chat-square-text" aria-hidden="true"></i>Application and product guidance</li>
+          <li><i class="bi bi-rulers" aria-hidden="true"></i>Ask our team about available sizes</li>
+        </ul>
+        <div class="detail-actions">
+          <a class="btn-brand" href="product-details.php?slug=heat-shrinkable-sleeves">View Product Details <i class="bi bi-arrow-right"></i></a>
+          <a class="btn-outline-brand" href="#product-categories">Browse the Range</a>
         </div>
       </div>
+      <img src="assets/images/1-1kv-polyolefin-heat-shrinkable-sleeves-1000x1000.webp" alt="Coiled black heat shrinkable sleeve tubing" loading="lazy">
+    </div>
+  </section>
+
+  <section class="product-catalog-section inner-section" id="product-categories">
+    <div class="container">
+      <div class="product-catalog-heading">
+        <div><span class="page-eyebrow">Products &amp; Services</span><h2>Explore the Product Range</h2><p>Browse the product categories and services currently listed by Pristine Engineering Services. Open a detail page for an overview and an enquiry option.</p></div>
+        <a class="btn-outline-brand" href="#product-enquiry">Need help choosing? <i class="bi bi-arrow-down"></i></a>
+      </div>
+      <nav class="product-category-shortcuts" aria-label="Product categories">
+        <?php foreach ($products as $productSlug => $product): ?>
+          <a href="#<?php echo $productSlug === 'heat-shrinkable-sleeves' ? 'heat-shrinkable' : 'product-' . $escape($productSlug); ?>"><?php echo $escape($product['title']); ?></a>
+        <?php endforeach; ?>
+      </nav>
+      <div class="other-products-grid product-catalog-grid">
+        <?php foreach ($products as $productSlug => $product): ?>
+          <a class="catalog-product-card reveal" id="product-<?php echo $escape($productSlug); ?>" href="product-details.php?slug=<?php echo rawurlencode($productSlug); ?>">
+            <span class="catalog-product-type"><?php echo $escape($product['type']); ?></span>
+            <img src="<?php echo $escape($product['image']); ?>" alt="<?php echo $escape($product['alt']); ?>" loading="lazy">
+            <h3><?php echo $escape($product['title']); ?></h3>
+            <p><?php echo $escape($product['summary']); ?></p>
+            <span class="catalog-product-link">View Details <i class="bi bi-arrow-right"></i></span>
+          </a>
+        <?php endforeach; ?>
+      </div>
+      <p class="product-image-note">Images marked as illustrative represent a product category, not a specification or confirmation of current availability.</p>
     </div>
   </section>
 
@@ -68,24 +84,13 @@
     </div>
   </section>
 
-  <section class="other-products inner-section" id="product-categories">
-    <div class="container">
-      <span class="page-eyebrow">Our Product Range</span><h2>Other Product Categories</h2>
-      <div class="other-products-grid">
-        <article><img src="assets/images/banner2.png" alt="Right angle boot products"><h3>Right Angle Boot</h3><a href="#product-enquiry">View Products <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/banner3.png" alt="Busbar sleeve products"><h3>Busbar Sleeves</h3><a href="#product-enquiry">View Products <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/banner2.png" alt="Separable connector products"><h3>Separable Connector</h3><a href="#product-enquiry">View Products <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/banner3.png" alt="Cable jointing kit products"><h3>Cable Jointing Kit</h3><a href="#product-enquiry">View Products <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/banner3.png" alt="Heat shrinkable joints"><h3>Heat Shrinkable Joints</h3><a href="#product-enquiry">View Products <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/banner2.png" alt="Outdoor termination kit products"><h3>Outdoor Termination Kit</h3><a href="#product-enquiry">View Products <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/banner3.png" alt="Cable protection products"><h3>Repair Services</h3><a href="#product-enquiry">View Products <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/products-banner.png" alt="Electrical accessories"><h3>Other Accessories</h3><a href="#product-enquiry">View Products <i class="bi bi-arrow-right"></i></a></article>
-      </div>
-    </div>
-  </section>
-
   <section class="product-solution-banner">
-    <div class="container"><div><span class="page-eyebrow">Complete Electrical Insulation Solutions</span><h2>Designed for Safety, Reliability and Performance</h2><p>Product choices and support for demanding industrial applications.</p><a class="btn-brand" href="#product-enquiry">Get Best Quote <i class="bi bi-arrow-right"></i></a></div>
+    <div class="container"><div>
+      <span class="page-eyebrow">Complete Electrical Insulation Solutions</span>
+      <h2 id="product-solution-title">Designed for Safety, Reliability and Performance</h2>
+      <p>Product choices and support for demanding industrial applications.</p>
+      <a class="btn-brand" href="#product-enquiry">Get Best Quote <i class="bi bi-arrow-right"></i></a>
+    </div>
       <ul><li><i class="bi bi-shield-check"></i>High Performance</li><li><i class="bi bi-patch-check"></i>Durable Products</li><li><i class="bi bi-boxes"></i>Wide Range</li><li><i class="bi bi-gear"></i>Technical Guidance</li></ul>
     </div>
   </section>
@@ -100,10 +105,11 @@
       <form data-contact-email-form>
         <label for="productRequirement">Describe your requirement *</label>
         <textarea id="productRequirement" name="requirement" rows="3" required></textarea>
-        <div><label for="productPhone">Mobile number *</label><input id="productPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" pattern="[0-9+() -]{8,18}" required><label for="productName">Your name *</label><input id="productName" name="name" autocomplete="name" required></div>
+        <div><label for="productPhone">Mobile number * (+91)</label><input id="productPhone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" pattern="[6-9][0-9]{9}" required><label for="productName">Your name *</label><input id="productName" name="name" autocomplete="name" required></div>
         <button type="submit" class="btn-brand">Prepare Email Enquiry <i class="bi bi-arrow-right"></i></button>
         <p class="form-msg" data-contact-form-status role="status" aria-live="polite"></p>
       </form>
     </div>
   </section>
 </main>
+<!-- ==================== PRODUCTS PAGE END ==================== -->

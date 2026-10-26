@@ -11,16 +11,9 @@
 
 <?php include_once("assets/inc/navbar.php"); ?>
 
-
-
-
-
-
-
-
-
-
+<!-- ABOUT PAGE CONTENT START -->
 <?php include_once("assets/inc/about-us.php"); ?>
+<!-- ABOUT PAGE CONTENT END -->
 
 
 

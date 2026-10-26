@@ -19,7 +19,8 @@
             <li><a href="index.php#hero">Home</a></li>
             <li><a href="about.php">About Us</a></li>
             <li><a href="products.php">Products &amp; Services</a></li>
-            <li><a href="industries.php">Industries &amp; Solutions</a></li>
+            <li><a href="industries.php">Industries</a></li>
+            <li><a href="solutions.php">Solutions</a></li>
             <li><a href="blogs.php">Blogs</a></li>
             <li><a href="contact.php">Contact Us</a></li>
           </ul>
@@ -28,14 +29,15 @@
         <div class="col-6 col-lg-3">
           <h4>Our Products</h4>
           <ul class="footer-links">
-            <li><a href="products.php#heat-shrinkable">Heat Shrinkable Sleeves</a></li>
-            <li><a href="products.php#product-categories">Right Angle Boot</a></li>
-            <li><a href="products.php#product-categories">Busbar Sleeves</a></li>
-            <li><a href="products.php#product-categories">Separable Connector</a></li>
-            <li><a href="products.php#product-categories">Cable Jointing Kit</a></li>
-            <li><a href="products.php#product-categories">Heat Shrinkable Joints</a></li>
-            <li><a href="products.php#product-categories">Outdoor Termination Kit</a></li>
-            <li><a href="products.php#product-enquiry">Other Accessories — enquire</a></li>
+            <li><a href="product-details.php?slug=heat-shrinkable-sleeves">Heat Shrinkable Sleeves</a></li>
+            <li><a href="product-details.php?slug=right-angle-boots">Right Angle Boots</a></li>
+            <li><a href="product-details.php?slug=busbar-sleeves">Busbar Sleeves</a></li>
+            <li><a href="product-details.php?slug=separable-connectors">Separable Connectors</a></li>
+            <li><a href="product-details.php?slug=cable-jointing-kits">Cable Jointing Kits</a></li>
+            <li><a href="product-details.php?slug=heat-shrinkable-joints">Heat Shrinkable Joints</a></li>
+            <li><a href="product-details.php?slug=outdoor-termination-kits">Outdoor Termination Kits</a></li>
+            <li><a href="product-details.php?slug=repair-services">Repair Services</a></li>
+            <li><a href="product-details.php?slug=other-accessories">Other Accessories</a></li>
           </ul>
         </div>
 

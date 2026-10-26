@@ -1,6 +1,9 @@
 
+  <?php require_once __DIR__ . '/product-catalog.php'; ?>
+  <?php $escape = static function ($value) { return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8'); }; ?>
+  <!-- ==================== HOME PAGE START ==================== -->
   <main>
-  <!-- ========= HERO==================== -->
+  <!-- HERO SECTION START -->
   <section class="hero" id="hero"> 
     <div class="swiper hero-swiper">
       <div class="swiper-wrapper">
@@ -60,7 +63,7 @@
               <ul class="hero-points">
                 <li><i class="bi bi-geo-alt"></i><span>Pan India<br>Network</span></li>
                 <li><i class="bi bi-clock-history"></i><span>Timely<br>Delivery</span></li>
-                <li><i class="bi bi-people"></i><span>1000+ Happy<br>Clients</span></li>
+                <li><i class="bi bi-people"></i><span>Industry<br>Applications</span></li>
                 <li><i class="bi bi-gear-wide-connected"></i><span>Custom<br>Solutions</span></li>
               </ul>
               <div class="hero-actions">
@@ -89,20 +92,22 @@
       </div>
     </div>
   </section>
+  <!-- HERO SECTION END -->
 
 
-  <!-- ==QUICK STATS STRIP======= -->
+  <!-- TRUSTED EXPERIENCE STRIP START -->
   <section class="stat-strip">
     <div class="container">
       <ul class="stat-strip-list">
-        <li><i class="bi bi-calendar2-check"></i><div><strong>8+</strong><span>Years of Experience</span></div></li>
-        <li><i class="bi bi-people"></i><div><strong>1000+</strong><span>Happy Clients</span></div></li>
-        <li><i class="bi bi-grid-3x3-gap"></i><div><strong>500+</strong><span>Products Range</span></div></li>
+        <li><i class="bi bi-calendar2-check"></i><div><strong>Since 2017</strong><span>Engineering Services</span></div></li>
+        <li><i class="bi bi-lightning-charge"></i><div><strong>Electrical</strong><span>Insulation Materials</span></div></li>
+        <li><i class="bi bi-box-seam"></i><div><strong>Cable</strong><span>Accessories</span></div></li>
+        <li><i class="bi bi-headset"></i><div><strong>Product</strong><span>Guidance &amp; Support</span></div></li>
         <li><i class="bi bi-geo-alt"></i><div><strong>Pan India</strong><span>Supply Network</span></div></li>
-        <li><i class="bi bi-clock-history"></i><div><strong>Timely Delivery</strong><span>Across India</span></div></li>
       </ul>
     </div>
   </section>
+  <!-- TRUSTED EXPERIENCE STRIP END -->
 
 
   <!-- ===========PRODUCTS========= -->
@@ -118,37 +123,17 @@
       </div>
 
       <div class="products-grid">
-        <a href="#enquiry" class="product-card reveal">
-          <div class="pc-visual"><img src="assets/images/banner3.png" alt="Cable sleeves and accessories" loading="lazy"></div>
-          <h3>Heat Shrinkable Sleeves</h3><span class="pc-link">View Products <i class="bi bi-arrow-right"></i></span>
-        </a>
-        <a href="#enquiry" class="product-card reveal">
-          <div class="pc-visual"><img src="assets/images/banner2.png" alt="Insulated electrical cable components" loading="lazy"></div>
-          <h3>Right Angle Boot</h3><span class="pc-link">View Products <i class="bi bi-arrow-right"></i></span>
-        </a>
-        <a href="#enquiry" class="product-card reveal">
-          <div class="pc-visual"><img src="assets/images/banner3.png" alt="Heat-shrinkable tubing in several colours" loading="lazy"></div>
-          <h3>Busbar Sleeves</h3><span class="pc-link">View Products <i class="bi bi-arrow-right"></i></span>
-        </a>
-        <a href="#enquiry" class="product-card reveal">
-          <div class="pc-visual"><img src="assets/images/banner3.png" alt="Electrical cable termination accessories" loading="lazy"></div>
-          <h3>Separable Connector</h3><span class="pc-link">View Products <i class="bi bi-arrow-right"></i></span>
-        </a>
-        <a href="#enquiry" class="product-card reveal">
-          <div class="pc-visual"><img src="assets/images/banner2.png" alt="Copper-core power cables" loading="lazy"></div>
-          <h3>Cable Jointing Kit</h3><span class="pc-link">View Products <i class="bi bi-arrow-right"></i></span>
-        </a>
-        <a href="#enquiry" class="product-card reveal">
-          <div class="pc-visual"><img src="assets/images/banner1.png" alt="Industrial cable reels and power cables" loading="lazy"></div>
-          <h3>Heat Shrinkable Joints</h3><span class="pc-link">View Products <i class="bi bi-arrow-right"></i></span>
-        </a>
-        <a href="#enquiry" class="product-card reveal">
-          <div class="pc-visual"><img src="assets/images/banner3.png" alt="Electrical cable terminations" loading="lazy"></div>
-          <h3>Outdoor Termination Kit</h3><span class="pc-link">View Products <i class="bi bi-arrow-right"></i></span>
-        </a>
+        <?php foreach ($products as $productSlug => $product): ?>
+          <a href="product-details.php?slug=<?php echo rawurlencode($productSlug); ?>" class="product-card reveal">
+            <div class="pc-visual"><img src="<?php echo $escape($product['image']); ?>" alt="<?php echo $escape($product['alt']); ?>" loading="lazy"></div>
+            <h3><?php echo $escape($product['title']); ?></h3><span class="pc-link">View Details <i class="bi bi-arrow-right"></i></span>
+          </a>
+        <?php endforeach; ?>
       </div>
     </div>
   </section>
+
+
 
 
   <!-- ========= ABOUT ========= -->
@@ -206,52 +191,39 @@
 
 
 
-  <!-- ==========TESTIMONIALS =================== -->
-  <section class="testimonials section-pad-sm" id="testimonials">
+  <!-- APPLICATION SUPPORT SECTION START -->
+  <section class="home-guidance section-pad-sm" id="guidance">
     <div class="container">
-      <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
-        <div class="reveal">
-          <span class="eyebrow">Client Testimonials</span>
-          <h2 class="section-title mb-0">What Our Clients Say</h2>
-        </div>
-        <a href="#testimonials" class="btn-outline-brand btn-sm-x reveal">View More Reviews <i class="bi bi-arrow-right"></i></a>
+      <div class="reveal mb-4">
+        <span class="eyebrow">Product &amp; Application Support</span>
+        <h2 class="section-title mb-0">Practical Guidance for Your Requirement</h2>
       </div>
-
-      <div class="testi-slider-wrap">
-        <div class="swiper testi-swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <article class="testi-card">
-                <i class="bi bi-quote testi-quote"></i>
-                <div class="stars" aria-label="5 out of 5"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
-                <p>Good quality products and timely delivery. Very professional team.</p>
-                <div class="testi-user"><span class="avatar">H</span><div><strong>Hitesh Patel</strong><small>Kutch, Gujarat</small></div></div>
-              </article>
-            </div>
-            <div class="swiper-slide">
-              <article class="testi-card">
-                <i class="bi bi-quote testi-quote"></i>
-                <div class="stars" aria-label="5 out of 5"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
-                <p>Reliable supplier with excellent product range and support.</p>
-                <div class="testi-user"><span class="avatar">G</span><div><strong>Gana Kumar Ganesan</strong><small>Vellore, Tamil Nadu</small></div></div>
-              </article>
-            </div>
-            <div class="swiper-slide">
-              <article class="testi-card">
-                <i class="bi bi-quote testi-quote"></i>
-                <div class="stars" aria-label="5 out of 5"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
-                <p>Best cable accessories with great quality. Highly recommended.</p>
-                <div class="testi-user"><span class="avatar">N</span><div><strong>Neil Manish</strong><small>Navi Mumbai, Maharashtra</small></div></div>
-              </article>
-            </div>
-          </div>
-        </div>
+      <div class="guidance-grid">
+        <article class="guidance-card reveal">
+          <i class="bi bi-box-seam" aria-hidden="true"></i>
+          <h3>Explore the Product Range</h3>
+          <p>Browse heat shrinkable sleeves, cable jointing kits, terminations and other cable accessories.</p>
+          <a href="products.php">View Products <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </article>
+        <article class="guidance-card reveal">
+          <i class="bi bi-diagram-3" aria-hidden="true"></i>
+          <h3>Discuss Your Application</h3>
+          <p>Share where the product will be used and what your electrical connection requires.</p>
+          <a href="industries.php">Explore Industries <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </article>
+        <article class="guidance-card reveal">
+          <i class="bi bi-chat-square-text" aria-hidden="true"></i>
+          <h3>Send an Enquiry</h3>
+          <p>Tell us what you need and choose to prepare a message by email or WhatsApp.</p>
+          <a href="#enquiry" data-open-enquiry>Contact Our Team <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </article>
       </div>
     </div>
   </section>
+  <!-- APPLICATION SUPPORT SECTION END -->
 
 
-  <!-- ========= ENQUIRY CTA============= -->
+  <!-- ENQUIRY CTA SECTION START -->
   <section class="enquiry" id="enquiry">
     <div class="container">
       <div class="enquiry-grid">
@@ -286,32 +258,29 @@
       </ul>
     </div>
   </section>
+  <!-- ENQUIRY CTA SECTION END -->
 
 
-  <!-- =============TRUSTED CLIENTS=================== -->
-  <?php include_once("assets/inc/client-logos.php"); ?>
-
-  
-  <!-- =============INDUSTRIES & SOLUTIONS============== -->
+  <!-- INDUSTRIES SECTION START -->
   <section class="industries" id="industries">
     <div class="container">
       <div class="row align-items-center g-4 g-xl-5">
         <div class="col-xl-4 reveal">
-          <span class="eyebrow">Industries &amp; Solutions</span>
+          <span class="eyebrow">Industries</span>
           <h2 class="section-title text-white">Powering Multiple Industries with Reliable Solutions</h2>
           <p class="ind-lead">Our products are widely used across various sectors, ensuring safe, reliable and efficient electrical connections.</p>
-          <a href="#enquiry" class="btn-brand">Explore Solutions <i class="bi bi-arrow-right"></i></a>
+          <a href="industries.php" class="btn-brand">Explore Industries <i class="bi bi-arrow-right"></i></a>
         </div>
 
         <div class="col-xl-8">
           <div class="ind-slider-wrap">
             <div class="swiper industries-swiper">
               <div class="swiper-wrapper">
-                <div class="swiper-slide"><a href="#enquiry" class="ind-card ind-1"><img src="assets/images/banner2.png" alt="" aria-hidden="true" loading="lazy"><i class="bi bi-lightning-charge-fill ind-bg-ico"></i><span class="ind-name">Power Distribution <i class="bi bi-arrow-right"></i></span></a></div>
-                <div class="swiper-slide"><a href="#enquiry" class="ind-card ind-2"><img src="assets/images/Golden Hour Petrochemical Plant.png" alt="" aria-hidden="true" loading="lazy"><i class="bi bi-gear-wide-connected ind-bg-ico"></i><span class="ind-name">Industrial Infrastructure <i class="bi bi-arrow-right"></i></span></a></div>
-                <div class="swiper-slide"><a href="#enquiry" class="ind-card ind-3"><img src="assets/images/Modern Office Building with Reflective Glass Facade.png" alt="" aria-hidden="true" loading="lazy"><i class="bi bi-buildings-fill ind-bg-ico"></i><span class="ind-name">Commercial Buildings <i class="bi bi-arrow-right"></i></span></a></div>
-                <div class="swiper-slide"><a href="#enquiry" class="ind-card ind-4"><img src="assets/images/Elevated Blue Metro Among Skyscrapers.png" alt="" aria-hidden="true" loading="lazy"><i class="bi bi-train-front-fill ind-bg-ico"></i><span class="ind-name">Railways &amp; Metro <i class="bi bi-arrow-right"></i></span></a></div>
-                <div class="swiper-slide"><a href="#enquiry" class="ind-card ind-5"><img src="assets/images/Solar Panels and Wind Turbines Under Blue Skies.png" alt="" aria-hidden="true" loading="lazy"><i class="bi bi-sun-fill ind-bg-ico"></i><span class="ind-name">Renewable Energy <i class="bi bi-arrow-right"></i></span></a></div>
+                <div class="swiper-slide"><a href="industries.php#power-distribution" class="ind-card ind-1"><img src="assets/images/banner2.png" alt="" aria-hidden="true" loading="lazy"><i class="bi bi-lightning-charge-fill ind-bg-ico"></i><span class="ind-name">Power Distribution <i class="bi bi-arrow-right"></i></span></a></div>
+                <div class="swiper-slide"><a href="industries.php#industrial-infrastructure" class="ind-card ind-2"><img src="assets/images/Golden Hour Petrochemical Plant.png" alt="" aria-hidden="true" loading="lazy"><i class="bi bi-gear-wide-connected ind-bg-ico"></i><span class="ind-name">Industrial Infrastructure <i class="bi bi-arrow-right"></i></span></a></div>
+                <div class="swiper-slide"><a href="industries.php#commercial-buildings" class="ind-card ind-3"><img src="assets/images/Modern Office Building with Reflective Glass Facade.png" alt="" aria-hidden="true" loading="lazy"><i class="bi bi-buildings-fill ind-bg-ico"></i><span class="ind-name">Commercial Buildings <i class="bi bi-arrow-right"></i></span></a></div>
+                <div class="swiper-slide"><a href="industries.php#railways" class="ind-card ind-4"><img src="assets/images/Elevated Blue Metro Among Skyscrapers.png" alt="" aria-hidden="true" loading="lazy"><i class="bi bi-train-front-fill ind-bg-ico"></i><span class="ind-name">Railways &amp; Metro <i class="bi bi-arrow-right"></i></span></a></div>
+                <div class="swiper-slide"><a href="industries.php#renewable-energy" class="ind-card ind-5"><img src="assets/images/Solar Panels and Wind Turbines Under Blue Skies.png" alt="" aria-hidden="true" loading="lazy"><i class="bi bi-sun-fill ind-bg-ico"></i><span class="ind-name">Renewable Energy <i class="bi bi-arrow-right"></i></span></a></div>
               </div>
             </div>
           </div>
@@ -319,6 +288,7 @@
       </div>
     </div>
   </section>
+  <!-- INDUSTRIES SECTION END -->
 
 
   <!-- ===========WHY CHOOSE PRISTINE=========== -->
@@ -353,13 +323,9 @@
       <div class="feat-slider-wrap">
         <div class="swiper featured-swiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide"><a href="#enquiry" class="feat-card"><img src="assets/images/banner3.png" alt="" aria-hidden="true" loading="lazy"><span>Heat Shrinkable Sleeves</span></a></div>
-            <div class="swiper-slide"><a href="#enquiry" class="feat-card"><img src="assets/images/banner2.png" alt="" aria-hidden="true" loading="lazy"><span>Right Angle Boot</span></a></div>
-            <div class="swiper-slide"><a href="#enquiry" class="feat-card"><img src="assets/images/banner3.png" alt="" aria-hidden="true" loading="lazy"><span>Busbar Sleeves</span></a></div>
-            <div class="swiper-slide"><a href="#enquiry" class="feat-card"><img src="assets/images/banner2.png" alt="" aria-hidden="true" loading="lazy"><span>Cable Jointing Kit</span></a></div>
-            <div class="swiper-slide"><a href="#enquiry" class="feat-card"><img src="assets/images/banner3.png" alt="" aria-hidden="true" loading="lazy"><span>Separable Connector</span></a></div>
-            <div class="swiper-slide"><a href="#enquiry" class="feat-card"><img src="assets/images/banner3.png" alt="" aria-hidden="true" loading="lazy"><span>Outdoor Termination Kit</span></a></div>
-            <div class="swiper-slide"><a href="#enquiry" class="feat-card"><img src="assets/images/banner1.png" alt="" aria-hidden="true" loading="lazy"><span>Heat Shrinkable Joints</span></a></div>
+            <?php foreach ($products as $productSlug => $product): ?>
+              <div class="swiper-slide"><a href="product-details.php?slug=<?php echo rawurlencode($productSlug); ?>" class="feat-card"><img src="<?php echo $escape($product['image']); ?>" alt="" aria-hidden="true" loading="lazy"><span><?php echo $escape($product['title']); ?></span></a></div>
+            <?php endforeach; ?>
           </div>
         </div>
       </div>
@@ -367,21 +333,22 @@
   </section>
 
 
-  <!-- ===============COUNTER BAND================== -->
+  <!-- COMPANY CAPABILITIES SECTION START -->
   <section class="counter-band">
     <div class="container">
       <ul class="counter-list">
-        <li><i class="bi bi-people"></i><div><strong><span class="count" data-count="1000">0</span>+</strong><span>Happy Clients</span></div></li>
-        <li><i class="bi bi-grid-3x3-gap"></i><div><strong><span class="count" data-count="500">0</span>+</strong><span>Products Range</span></div></li>
-        <li><i class="bi bi-calendar2-check"></i><div><strong><span class="count" data-count="8">0</span>+</strong><span>Years of Experience</span></div></li>
+        <li><i class="bi bi-calendar2-check"></i><div><strong>2017</strong><span>Established</span></div></li>
+        <li><i class="bi bi-lightning-charge"></i><div><strong>Electrical</strong><span>Insulation Materials</span></div></li>
+        <li><i class="bi bi-box-seam"></i><div><strong>Cable</strong><span>Accessories</span></div></li>
+        <li><i class="bi bi-headset"></i><div><strong>Product</strong><span>Guidance &amp; Support</span></div></li>
         <li><i class="bi bi-geo-alt"></i><div><strong>Pan India</strong><span>Supply Network</span></div></li>
-        <li><i class="bi bi-patch-check"></i><div><strong><span class="count" data-count="100">0</span>%</strong><span>Customer Satisfaction</span></div></li>
       </ul>
     </div>
   </section>
+  <!-- COMPANY CAPABILITIES SECTION END -->
 
 
-  <!-- ===========PROCESS — enquiry to delivery================= -->
+  <!-- ENQUIRY PROCESS SECTION START -->
   <section class="process section-pad-sm" id="process">
     <div class="container position-relative">
       <div class="reveal mb-4">
@@ -404,14 +371,16 @@
             <i class="bi bi-telephone-fill"></i>
             <div><small>Need Assistance?</small><a href="tel:07949313008">07949313008</a></div>
           </div>
-          <a href="#testimonials" class="btn-brand btn-sm-x">View More Reviews <i class="bi bi-arrow-right"></i></a>
+          <a href="#guidance" class="btn-brand btn-sm-x">Explore Product Guidance <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
     </div>
   </section>
+  <!-- ENQUIRY PROCESS SECTION END -->
 
 
   </main>
+  <!-- ==================== HOME PAGE END ==================== -->
 
   <nav class="contact-shortcuts" aria-label="Quick contact">
     <a href="tel:07949313008" aria-label="Call Pristine Engineering Services">

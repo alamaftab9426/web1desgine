@@ -1,3 +1,4 @@
+<!-- ==================== CONTACT PAGE START ==================== -->
 <main class="inner-main contact-page">
   <section class="page-hero contact-hero">
     <img src="assets/images/contact-banner.png" alt="" aria-hidden="true">
@@ -21,7 +22,7 @@
         <div class="contact-fields">
           <label><span>Your Name *</span><input type="text" name="name" autocomplete="name" required></label>
           <label><span>Your Email *</span><input type="email" name="email" autocomplete="email" required></label>
-          <label><span>Mobile Number *</span><input type="tel" name="phone" inputmode="tel" autocomplete="tel" pattern="[0-9+() -]{8,18}" required></label>
+          <label><span>Mobile Number * (+91)</span><input type="tel" name="phone" inputmode="numeric" autocomplete="tel-national" maxlength="10" pattern="[6-9][0-9]{9}" required></label>
           <label><span>Company Name</span><input type="text" name="company" autocomplete="organization"></label>
           <label><span>Enquiry Type *</span><select name="enquiryType" required><option value="">Choose an enquiry type</option><option>Product Enquiry</option><option>Technical Support</option><option>Business Enquiry</option><option>Other</option></select></label>
           <label><span>Select Product / Service</span><select name="product"><option value="">Choose a product or service</option><option>Heat Shrinkable Sleeves</option><option>Right Angle Boot</option><option>Busbar Sleeves</option><option>Separable Connector</option><option>Cable Jointing Kit</option><option>Other</option></select></label>
@@ -50,3 +51,4 @@
   </section>
   <section class="contact-final-cta"><div class="container"><div><span class="page-eyebrow">Start a Conversation</span><h2>Let’s Work <span>Together</span></h2><p>Connect with our team for reliable products and customised solutions.</p></div><a class="btn-brand" href="#enquiryModal" data-open-enquiry><i class="bi bi-telephone"></i> Request a Callback</a></div></section>
 </main>
+<!-- ==================== CONTACT PAGE END ==================== -->

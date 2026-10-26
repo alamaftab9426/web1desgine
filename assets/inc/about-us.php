@@ -1,3 +1,4 @@
+<!-- ==================== ABOUT PAGE START ==================== -->
 <main class="inner-main about-page">
 
   <!-- 1. Hero Section -->
@@ -17,7 +18,7 @@
       <div class="about-photo-wrapper">
         <div class="photo-slant-border"></div>
         <div class="about-photo angular-photo">
-          <img src="assets/images/Modern Office Building with Reflective Glass Facade.png" alt="Pristine Engineering Facility">
+          <img src="assets/images/Modern Office Building with Reflective Glass Facade.png" alt="Modern commercial building facade">
         </div>
         <div class="photo-caption-badge">
           <i class="bi bi-buildings"></i>
@@ -39,9 +40,9 @@
   <!-- 3. Stats Strip -->
   <section class="about-stats">
     <div class="container stats-grid">
-      <div><i class="bi bi-trophy"></i><strong>8+</strong><span>Years of Experience</span></div>
-      <div><i class="bi bi-people"></i><strong>1000+</strong><span>Happy Clients</span></div>
-      <div><i class="bi bi-box-seam"></i><strong>500+</strong><span>Products Range</span></div>
+      <div><i class="bi bi-calendar2-check"></i><strong>Since 2017</strong><span>Engineering Services</span></div>
+      <div><i class="bi bi-lightning-charge"></i><strong>Electrical</strong><span>Insulation Materials</span></div>
+      <div><i class="bi bi-box-seam"></i><strong>Cable</strong><span>Accessories</span></div>
       <div><i class="bi bi-geo-alt"></i><strong>Pan India</strong><span>Supply Network</span></div>
     </div>
   </section>
@@ -201,7 +202,7 @@
       <div class="team-visual-center">
         <div class="team-orange-pill"></div>
         <div class="team-photo-angled">
-          <img src="assets/images/Golden Hour Petrochemical Plant.png" alt="Team Partnership">
+          <img src="assets/images/Golden Hour Petrochemical Plant.png" alt="Industrial infrastructure at sunset">
         </div>
       </div>
 
@@ -243,3 +244,4 @@
   </section>
 
 </main>
+<!-- ==================== ABOUT PAGE END ==================== -->

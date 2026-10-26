@@ -1,3 +1,4 @@
+<!-- ==================== SOLUTIONS PAGE START ==================== -->
 <main class="inner-main solutions-page">
   <section class="page-hero solutions-hero">
     <img src="assets/images/solutions-banner.png" alt="" aria-hidden="true">
@@ -20,12 +21,14 @@
 
   <section class="solution-needs inner-section">
     <div class="container"><div class="section-heading-row"><div><h2>Solutions <span>by Your Needs</span></h2><p>Explore our electrical insulation and cable accessory ranges for diverse applications.</p></div><a class="btn-outline-brand" href="products.php">View Products <i class="bi bi-arrow-right"></i></a></div>
-      <div class="solution-needs-grid">
-        <article><img src="assets/images/banner3.png" alt="Electrical insulation products"><h3>Electrical Insulation</h3><p>Insulation options for electrical equipment and cable connections.</p><a href="#featured-solution">Explore <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/banner2.png" alt="Cable termination components"><h3>Cable Termination</h3><p>Products for cable termination in electrical networks.</p><a href="#solution-range">Explore <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/banner3.png" alt="Cable jointing products"><h3>Cable Jointing</h3><p>Jointing products to support reliable electrical connections.</p><a href="#solution-range">Explore <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/banner2.png" alt="Cable protection and identification products"><h3>Protection &amp; Identification</h3><p>Protective and identification accessories for applications.</p><a href="#solution-range">Explore <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/products-banner.png" alt="Electrical insulation solutions"><h3>Custom Solutions</h3><p>Talk to our team about your product and application needs.</p><a href="#solution-contact">Explore <i class="bi bi-arrow-right"></i></a></article>
+      <div class="swiper solution-needs-swiper" aria-label="Solutions by application">
+        <div class="solution-needs-grid swiper-wrapper">
+          <article class="swiper-slide"><img src="assets/images/banner3.png" alt="Electrical insulation products"><h3>Electrical Insulation</h3><p>Insulation options for electrical equipment and cable connections.</p><a href="#featured-solution">Explore <i class="bi bi-arrow-right"></i></a></article>
+          <article class="swiper-slide"><img src="assets/images/banner2.png" alt="Cable termination components"><h3>Cable Termination</h3><p>Products for cable termination in electrical networks.</p><a href="#solution-range">Explore <i class="bi bi-arrow-right"></i></a></article>
+          <article class="swiper-slide"><img src="assets/images/banner3.png" alt="Cable jointing products"><h3>Cable Jointing</h3><p>Jointing products to support reliable electrical connections.</p><a href="#solution-range">Explore <i class="bi bi-arrow-right"></i></a></article>
+          <article class="swiper-slide"><img src="assets/images/banner2.png" alt="Cable protection and identification products"><h3>Protection &amp; Identification</h3><p>Protective and identification accessories for applications.</p><a href="#solution-range">Explore <i class="bi bi-arrow-right"></i></a></article>
+          <article class="swiper-slide"><img src="assets/images/products-banner.png" alt="Electrical insulation solutions"><h3>Custom Solutions</h3><p>Talk to our team about your product and application needs.</p><a href="#solution-contact">Explore <i class="bi bi-arrow-right"></i></a></article>
+        </div>
       </div>
     </div>
   </section>
@@ -41,10 +44,10 @@
   <section class="solution-range inner-section" id="solution-range">
     <div class="container"><span class="page-eyebrow">Our Complete Solution Range</span><h2>From Standard Products to Application Support</h2>
       <div class="solution-range-grid">
-        <article><img src="assets/images/banner3.png" alt="Heat shrinkable insulation products"><h3>Heat Shrinkable Solutions</h3><p>Heat shrinkable sleeves, joints and tubing.</p><a href="products.php#heat-shrinkable">View Products <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/banner2.png" alt="Cable termination accessories"><h3>Termination Solutions</h3><p>Right angle boots and termination kits.</p><a href="products.php#product-categories">View Products <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/banner3.png" alt="Cable jointing products"><h3>Jointing Solutions</h3><p>Cable joints, connectors and accessories.</p><a href="products.php#product-categories">View Products <i class="bi bi-arrow-right"></i></a></article>
-        <article><img src="assets/images/products-banner.png" alt="Cable protection products"><h3>Protection &amp; Accessories</h3><p>Busbar sleeves and other accessories.</p><a href="products.php#product-categories">View Products <i class="bi bi-arrow-right"></i></a></article>
+        <article><img src="assets/images/banner3.png" alt="Heat shrinkable insulation products"><h3>Heat Shrinkable Solutions</h3><p>Heat shrinkable sleeves, joints and tubing.</p><a href="product-details.php?slug=heat-shrinkable-sleeves">View Products <i class="bi bi-arrow-right"></i></a></article>
+        <article><img src="assets/images/banner2.png" alt="Cable termination accessories"><h3>Termination Solutions</h3><p>Right angle boots and termination kits.</p><a href="product-details.php?slug=right-angle-boots">View Products <i class="bi bi-arrow-right"></i></a></article>
+        <article><img src="assets/images/banner3.png" alt="Cable jointing products"><h3>Jointing Solutions</h3><p>Cable joints, connectors and accessories.</p><a href="product-details.php?slug=cable-jointing-kits">View Products <i class="bi bi-arrow-right"></i></a></article>
+        <article><img src="assets/images/products-banner.png" alt="Cable protection products"><h3>Protection &amp; Accessories</h3><p>Busbar sleeves and other accessories.</p><a href="product-details.php?slug=busbar-sleeves">View Products <i class="bi bi-arrow-right"></i></a></article>
       </div>
     </div>
   </section>
@@ -57,5 +60,5 @@
     <div class="container"><span class="page-eyebrow">Our Process</span><h2>A Structured Approach to Your Requirements</h2><ol><li><i class="bi bi-chat-square-text"></i><strong>01</strong><span>Understand your need</span></li><li><i class="bi bi-people"></i><strong>02</strong><span>Technical consultation</span></li><li><i class="bi bi-gear"></i><strong>03</strong><span>Recommend products</span></li><li><i class="bi bi-box-seam"></i><strong>04</strong><span>Product supply &amp; support</span></li><li><i class="bi bi-handshake"></i><strong>05</strong><span>Long-term partnership</span></li></ol></div>
   </section>
   <section class="inner-cta" id="solution-contact"><div class="container"><div><span class="page-eyebrow">Get a Customised Solution</span><h2>Let’s Find the Right Solution for Your Project</h2><p>Share your requirements and our team will help you explore a suitable product range.</p></div><a href="#enquiryModal" data-open-enquiry class="btn-brand">Get in Touch <i class="bi bi-arrow-right"></i></a></div></section>
-  <?php include_once("assets/inc/client-logos.php"); ?>
 </main>
+<!-- ==================== SOLUTIONS PAGE END ==================== -->
