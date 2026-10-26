@@ -306,7 +306,7 @@
   </section>
 
 
-  <!-- ===============FEATURED PRODUCTS (swipeable)=========================== -->
+  <!-- ======FEATURED PRODUCTS (swipeable)========= -->
   <section class="featured section-pad-sm" id="featured">
     <div class="container">
       <div class="reveal mb-4">
