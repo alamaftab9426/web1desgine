@@ -139,8 +139,6 @@
   <!-- ========= ABOUT ========= -->
   <section class="about" id="about">
     <div class="container-xl about-grid">
-
-      <!-- left: facade / video -->
       <div class="about-media reveal from-left">
         <div class="about-facade">
           <img src="assets/images/banner1.png" alt="Industrial electrical cables and cable reels at a project site" loading="lazy">
