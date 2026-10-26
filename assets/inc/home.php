@@ -1,13 +1,12 @@
 
   <?php require_once __DIR__ . '/product-catalog.php'; ?>
   <?php $escape = static function ($value) { return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8'); }; ?>
-  <!-- ==================== HOME PAGE START ==================== -->
+
   <main>
   <!-- HERO SECTION START -->
   <section class="hero" id="hero"> 
     <div class="swiper hero-swiper">
       <div class="swiper-wrapper">
-
         <!-- Slide 1 -->
         <div class="swiper-slide hero-slide">
           <img class="hero-bg" src="assets/images/banner1.png" alt="Electrical cable reels and industrial infrastructure">
@@ -94,7 +93,6 @@
   </section>
   <!-- HERO SECTION END -->
 
-
   <!-- TRUSTED EXPERIENCE STRIP START -->
   <section class="stat-strip">
     <div class="container">
@@ -132,8 +130,6 @@
       </div>
     </div>
   </section>
-
-
 
 
   <!-- ========= ABOUT ========= -->
@@ -183,7 +179,6 @@
           </ul>
         </div>
       </aside>
-
     </div>
   </section>
 
