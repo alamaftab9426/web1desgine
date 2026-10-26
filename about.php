@@ -11,9 +11,7 @@
 
 <?php include_once("assets/inc/navbar.php"); ?>
 
-<!-- ABOUT PAGE CONTENT START -->
 <?php include_once("assets/inc/about-us.php"); ?>
-
 <?php include_once("assets/inc/footer.php"); ?>
  <?php include_once("assets/inc/modal.php"); ?>
  <?php include_once("assets/inc/footer-link.php"); ?>
