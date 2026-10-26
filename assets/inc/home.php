@@ -338,7 +338,7 @@
       </ul>
     </div>
   </section>
-  <!-- COMPANY CAPABILITIES SECTION END -->
+  <!-- COMPANY CAPABILITIES SECTION END ->
 
 
   <!-- ENQUIRY PROCESS SECTION START -->
