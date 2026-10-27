@@ -75,7 +75,7 @@
 
       </div>
 
-      <!-- floating feature card (static, sits above all slides) -->
+      <!-- floating feature card (static sits above all slides) -->
       <div class="container hero-ui">
         <ul class="hero-features d-none d-lg-block" aria-label="Our strengths">
           <li><i class="bi bi-plug"></i> Safe Connections</li>
@@ -341,7 +341,7 @@
   <!-- COMPANY CAPABILITIES SECTION END ->
 
 
-  <!-- ENQUIRY PROCESS SECTION START -->
+  <-- ENQUIRY PROCESS SECTION START -->
   <section class="process section-pad-sm" id="process">
     <div class="container position-relative">
       <div class="reveal mb-4">
@@ -372,7 +372,6 @@
   <!-- ENQUIRY PROCESS SECTION END ->
 
 
-  </main>
   <-- ==================== HOME PAGE END ==================== -->
 
   <nav class="contact-shortcuts" aria-label="Quick contact">
