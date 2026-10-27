@@ -150,7 +150,6 @@
         </div>
       </div>
 
-      <!-- centre: copy -->
       <div class="about-copy reveal">
         <span class="eyebrow">About Pristine</span>
         <h2 class="section-title">Your Partner in <br>Electrical Connectivity</h2>
