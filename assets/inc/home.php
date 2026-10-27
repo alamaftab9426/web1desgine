@@ -369,11 +369,11 @@
       </div>
     </div>
   </section>
-  <!-- ENQUIRY PROCESS SECTION END -->
+  <!-- ENQUIRY PROCESS SECTION END ->
 
 
   </main>
-  <!-- ==================== HOME PAGE END ==================== -->
+  <-- ==================== HOME PAGE END ==================== -->
 
   <nav class="contact-shortcuts" aria-label="Quick contact">
     <a href="tel:07949313008" aria-label="Call Pristine Engineering Services">
